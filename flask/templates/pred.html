@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWI Prediction</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        input {
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        input::placeholder {
+            color: #aaa;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .result-container {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .result-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        <h1>FWI Prediction</h1>
+        
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{url_for('predict')}}" method="post">
+            <input type="text" name="temperature" placeholder="temperature" required="required">
+            <input type="text" name="rh" placeholder="rh" required="required">
+            <input type="text" name="ws" placeholder="Wind Speed" required="required">
+            <input type="text" name="rain" placeholder="rain" required="required">
+            <input type="text" name="ffmc" placeholder="ffmc" required="required">
+            <input type="text" name="dmc" placeholder="dmc" required="required">
+            <input type="text" name="dc" placeholder="dc" required="required">
+            <input type="text" name="isi" placeholder="isi" required="required">
+            <input type="text" name="bui" placeholder="bui" required="required">
+            <input type="text" name="region" placeholder="region" required="required">
+            
+            <button type="submit">Predict FWI</button>
+        </form>
+        
+        <!-- Results Display -->
+        {% if results %}
+        <div class="result-container">
+            <h2>THE FWI prediction is:</h2>
+            <div class="result-value">{{ results }}</div>
+        </div>
+        {% endif %}
+        
+        <div class="footer">
+            Enter parameters to predict Fire Weather Index
+        </div>
+    </div>
+</body>
+</html>
