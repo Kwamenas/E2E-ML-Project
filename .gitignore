@@ -1,0 +1,8 @@
+# Ignore virtual environment
+myvenv/
+venv/
+
+# Ignore compiled files
+*.dll
+*.so
+*.dylib
